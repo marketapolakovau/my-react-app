@@ -10,8 +10,11 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { Products, useProducts } from "../api/api";
-import Detail from "./Detail";
+import UpdateProductDialog from "./UpdateProductDialog";
+import { useNavigate } from "react-router-dom";
+
 const MainPage = () => {
+    const navigate = useNavigate();
     const [open, setOpen] = useState(false);
     const [productId, setProductId] = useState<any>(null);
 
@@ -26,18 +29,16 @@ const MainPage = () => {
 
     const products = useProducts();
 
-    if (products.isPending) return <h1>Loading...</h1>;
-    if (products.isError) {
-        return <pre>{JSON.stringify(products.error)}</pre>;
-    }
     console.log(products);
 
     return (
         <TableContainer component={Paper}>
+            {products.isPending && <h1>Loading...</h1>}
+            {products.isError && <pre>{JSON.stringify(products.error)}</pre>}
             {products.isFetching && <h1>Updating...</h1>}
 
             {open && (
-                <Detail
+                <UpdateProductDialog
                     handleClose={handleClose}
                     open={open}
                     productId={productId}
@@ -56,7 +57,12 @@ const MainPage = () => {
                         <TableCell sx={{ fontWeight: "bold" }} align="right">
                             Category
                         </TableCell>
-                        <TableCell>Detail</TableCell>
+                        <TableCell sx={{ fontWeight: "bold" }}>
+                            Detail
+                        </TableCell>
+                        <TableCell sx={{ fontWeight: "bold" }}>
+                            Update
+                        </TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -74,8 +80,23 @@ const MainPage = () => {
                             <TableCell align="right">{data.quantity}</TableCell>
                             <TableCell align="right">{data.price}</TableCell>
                             <TableCell>{data.category}</TableCell>
-                            <TableCell onClick={() => handleClickOpen(data.id)}>
-                                <Button>Update</Button>
+                            <TableCell>
+                                <Button
+                                    onClick={() => {
+                                        void navigate(
+                                            `/product/detail/${data.id}`
+                                        );
+                                    }}
+                                >
+                                    Detail
+                                </Button>
+                            </TableCell>
+                            <TableCell>
+                                <Button
+                                    onClick={() => handleClickOpen(data.id)}
+                                >
+                                    Update
+                                </Button>
                             </TableCell>
                         </TableRow>
                     ))}

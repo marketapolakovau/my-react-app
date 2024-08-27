@@ -20,7 +20,11 @@ type Detail = {
     open: boolean;
     productId: number;
 };
-export default function Detail({ handleClose, open, productId }: Detail) {
+export default function UpdateProductDialog({
+    handleClose,
+    open,
+    productId,
+}: Detail) {
     const productDetail = useProductDetail(productId);
     const updateProductMutation = useUpdateProduct();
 
@@ -30,6 +34,7 @@ export default function Detail({ handleClose, open, productId }: Detail) {
         category: "",
         quantity: 0,
         price: 0,
+        description: "",
     });
 
     useEffect(() => {
@@ -40,6 +45,7 @@ export default function Detail({ handleClose, open, productId }: Detail) {
                 category: productDetail.data.category,
                 quantity: productDetail.data.quantity,
                 price: productDetail.data.price,
+                description: productDetail.data.description,
             });
         }
     }, [productDetail.data]);
@@ -149,6 +155,19 @@ export default function Detail({ handleClose, open, productId }: Detail) {
                                 </MenuItem>
                             </Select>
                         </FormControl>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            multiline
+                            rows={4}
+                            fullWidth
+                            id="standard-basic"
+                            label="Name"
+                            variant="standard"
+                            name="name"
+                            value={formData?.description}
+                            onChange={handleInputChange}
+                        />
                     </Grid>
                 </Grid>
             </DialogContent>
