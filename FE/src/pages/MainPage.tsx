@@ -1,108 +1,71 @@
 import {
     Button,
-    Paper,
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow,
+    Card,
+    CardActions,
+    CardContent,
+    CardMedia,
+    Container,
+    Typography,
 } from "@mui/material";
-import { useState } from "react";
+import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
+
 import { Products, useProducts } from "../api/api";
-import UpdateProductDialog from "./UpdateProductDialog";
 import { useNavigate } from "react-router-dom";
 
 const MainPage = () => {
-    const navigate = useNavigate();
-    const [open, setOpen] = useState(false);
-    const [productId, setProductId] = useState<any>(null);
-
-    const handleClickOpen = (product: number) => {
-        setOpen(true);
-        setProductId(product);
-    };
-
-    const handleClose = () => {
-        setOpen(false);
-    };
-
     const products = useProducts();
-
-    console.log(products);
+    const navigate = useNavigate();
 
     return (
-        <TableContainer component={Paper}>
+        <Container sx={{ my: 4 }}>
             {products.isPending && <h1>Loading...</h1>}
             {products.isError && <pre>{JSON.stringify(products.error)}</pre>}
-            {products.isFetching && <h1>Updating...</h1>}
+            <Grid2 container spacing={2}>
+                {products.data?.map((data: Products) => (
+                    <Grid2 key={data.id}>
+                        <Card sx={{ minWidth: 275 }}>
+                            <CardMedia
+                                sx={{ height: 140 }}
+                                image={data.imageUrl}
+                                title="green iguana"
+                            />
+                            <CardContent>
+                                <Typography variant="h4" component="div">
+                                    {data.name}
+                                </Typography>
 
-            {open && (
-                <UpdateProductDialog
-                    handleClose={handleClose}
-                    open={open}
-                    productId={productId}
-                />
-            )}
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                <TableHead>
-                    <TableRow>
-                        <TableCell sx={{ fontWeight: "bold" }}>Name</TableCell>
-                        <TableCell sx={{ fontWeight: "bold" }} align="right">
-                            Quantity
-                        </TableCell>
-                        <TableCell sx={{ fontWeight: "bold" }} align="right">
-                            Price
-                        </TableCell>
-                        <TableCell sx={{ fontWeight: "bold" }} align="right">
-                            Category
-                        </TableCell>
-                        <TableCell sx={{ fontWeight: "bold" }}>
-                            Detail
-                        </TableCell>
-                        <TableCell sx={{ fontWeight: "bold" }}>
-                            Update
-                        </TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {products.data?.map((data: Products) => (
-                        <TableRow
-                            key={data.id}
-                            sx={{
-                                "&:last-child td, &:last-child th": {
-                                    border: 0,
-                                },
-                            }}
-                        >
-                            <TableCell align="right">{data.name}</TableCell>
+                                <Typography
+                                    sx={{ color: "text.secondary", mb: 1.5 }}
+                                >
+                                    {data.category}
+                                </Typography>
+                                <Typography variant="body2">
+                                    <Typography variant="h5">
+                                        {" "}
+                                        {data.price}
+                                    </Typography>
 
-                            <TableCell align="right">{data.quantity}</TableCell>
-                            <TableCell align="right">{data.price}</TableCell>
-                            <TableCell>{data.category}</TableCell>
-                            <TableCell>
+                                    <br />
+                                    {data.description.substring(0, 50) + "..."}
+                                </Typography>
+                            </CardContent>
+                            <CardActions>
                                 <Button
                                     onClick={() => {
                                         void navigate(
                                             `/product/detail/${data.id}`
                                         );
                                     }}
+                                    size="small"
                                 >
-                                    Detail
+                                    More
                                 </Button>
-                            </TableCell>
-                            <TableCell>
-                                <Button
-                                    onClick={() => handleClickOpen(data.id)}
-                                >
-                                    Update
-                                </Button>
-                            </TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
+                            </CardActions>
+                        </Card>
+                    </Grid2>
+                ))}
+            </Grid2>
+        </Container>
     );
 };
 

@@ -5,6 +5,10 @@ export type Products = {
     category: string;
     quantity: number;
     price: number;
+
+    imageUrl: string;
+    additionalImages: string[];
+    description: string;
 };
 const fetchProducts = async () => {
     const response = await fetch("http://localhost:3000/");
