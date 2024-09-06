@@ -93,88 +93,90 @@ export default function UpdateProductDialog({
             <DialogTitle id="alert-dialog-title">
                 {"Update product informations"}
             </DialogTitle>
-            <DialogContent>
-                <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                        <TextField
-                            fullWidth
-                            id="standard-basic"
-                            label="Name"
-                            variant="standard"
-                            name="name"
-                            value={formData?.name}
-                            onChange={handleInputChange}
-                        />
+            <form onSubmit={handleSubmit}>
+                <DialogContent>
+                    <Grid container spacing={2}>
+                        <Grid item xs={12}>
+                            <TextField
+                                fullWidth
+                                id="standard-basic"
+                                label="Name"
+                                variant="standard"
+                                name="name"
+                                value={formData?.name}
+                                onChange={handleInputChange}
+                            />
+                        </Grid>
+                        <Grid item xs={4}>
+                            <TextField
+                                fullWidth
+                                id="standard-basic"
+                                label="Quantity"
+                                variant="standard"
+                                name="quantity"
+                                value={formData?.quantity}
+                                onChange={handleInputChange}
+                            />
+                        </Grid>
+                        <Grid item xs={4}>
+                            <TextField
+                                fullWidth
+                                id="standard-basic"
+                                label="Price"
+                                variant="standard"
+                                name="price"
+                                value={formData?.price}
+                                onChange={handleInputChange}
+                            />
+                        </Grid>
+                        <Grid item xs={4}>
+                            <FormControl variant="standard" fullWidth>
+                                <InputLabel id="demo-simple-select-label">
+                                    Category
+                                </InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    name="category"
+                                    value={formData?.category}
+                                    label="Category"
+                                    onChange={handleSelectChange}
+                                >
+                                    <MenuItem value={"Electronics"}>
+                                        Electronics
+                                    </MenuItem>
+                                    <MenuItem value={"Furniture"}>
+                                        Furniture
+                                    </MenuItem>
+                                    <MenuItem value={"Stationery"}>
+                                        Stationery
+                                    </MenuItem>
+                                    <MenuItem value={"Kitchenware"}>
+                                        Kitchenware
+                                    </MenuItem>
+                                </Select>
+                            </FormControl>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                multiline
+                                rows={4}
+                                fullWidth
+                                id="standard-basic"
+                                label="Name"
+                                variant="standard"
+                                name="name"
+                                value={formData?.description}
+                                onChange={handleInputChange}
+                            />
+                        </Grid>
                     </Grid>
-                    <Grid item xs={4}>
-                        <TextField
-                            fullWidth
-                            id="standard-basic"
-                            label="Quantity"
-                            variant="standard"
-                            name="quantity"
-                            value={formData?.quantity}
-                            onChange={handleInputChange}
-                        />
-                    </Grid>
-                    <Grid item xs={4}>
-                        <TextField
-                            fullWidth
-                            id="standard-basic"
-                            label="Price"
-                            variant="standard"
-                            name="price"
-                            value={formData?.price}
-                            onChange={handleInputChange}
-                        />
-                    </Grid>
-                    <Grid item xs={4}>
-                        <FormControl variant="standard" fullWidth>
-                            <InputLabel id="demo-simple-select-label">
-                                Category
-                            </InputLabel>
-                            <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                name="category"
-                                value={formData?.category}
-                                label="Category"
-                                onChange={handleSelectChange}
-                            >
-                                <MenuItem value={"Electronics"}>
-                                    Electronics
-                                </MenuItem>
-                                <MenuItem value={"Furniture"}>
-                                    Furniture
-                                </MenuItem>
-                                <MenuItem value={"Stationery"}>
-                                    Stationery
-                                </MenuItem>
-                                <MenuItem value={"Kitchenware"}>
-                                    Kitchenware
-                                </MenuItem>
-                            </Select>
-                        </FormControl>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <TextField
-                            multiline
-                            rows={4}
-                            fullWidth
-                            id="standard-basic"
-                            label="Name"
-                            variant="standard"
-                            name="name"
-                            value={formData?.description}
-                            onChange={handleInputChange}
-                        />
-                    </Grid>
-                </Grid>
-            </DialogContent>
-            <DialogActions>
-                <Button onClick={handleSubmit}>Update</Button>
-                <Button onClick={handleClose}>Cancel</Button>
-            </DialogActions>
+                </DialogContent>
+                <DialogActions>
+                    <Button type="submit">Update</Button>
+                    <Button onClick={handleClose}>Cancel</Button>
+                </DialogActions>
+            </form>
         </Dialog>
     );
 }
