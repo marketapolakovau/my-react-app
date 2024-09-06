@@ -91,7 +91,7 @@ export default function UpdateProductDialog({
             {updateProductMutation.isPending && <h1>Loading...</h1>}
 
             <DialogTitle id="alert-dialog-title">
-                {"Update university informations"}
+                {"Update product informations"}
             </DialogTitle>
             <DialogContent>
                 <Grid container spacing={2}>
