@@ -34,6 +34,15 @@ function Header() {
                     >
                         Administration
                     </Button>
+
+                    <Box sx={{ flexGrow: 1 }} />
+                    <Button
+                        sx={{ my: 2, color: "#f6f5f5", display: "block" }}
+                        href="https://github.com/marketapolakovau/my-next-app"
+                        target="_blank" // Opens in a new tab
+                    >
+                        Next.js app
+                    </Button>
                 </Box>
             </Container>
         </AppBar>
